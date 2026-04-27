@@ -74,9 +74,8 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const { data: app, error } = await supabase
-        .from("applications")
-        .insert({
+      const { data, error } = await supabase.functions.invoke("submit-application", {
+        body: {
           full_name: values.full_name,
           company: values.company,
           whatsapp: values.whatsapp,
@@ -89,20 +88,14 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
               ? values.prior_participation_details ?? null
               : null,
           motivation: values.motivation || null,
-        })
-        .select("id")
-        .single();
+          committee_ids: values.committee_ids,
+        },
+      });
 
-      if (error || !app) throw error ?? new Error("Falha ao registrar");
-
-      const links = values.committee_ids.map((cid) => ({
-        application_id: app.id,
-        committee_id: cid,
-      }));
-      const { error: linkErr } = await supabase
-        .from("application_committees")
-        .insert(links);
-      if (linkErr) throw linkErr;
+      if (error) throw error;
+      if (data && (data as { error?: string }).error) {
+        throw new Error((data as { error: string }).error);
+      }
 
       setSubmitted(true);
       reset();
