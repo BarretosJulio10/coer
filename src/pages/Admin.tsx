@@ -141,19 +141,19 @@ const Admin = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <SiteHeader />
-        <main className="flex-1 grid place-items-center px-6 py-24">
+        <main className="flex-1 grid place-items-center px-4 sm:px-6 py-12 sm:py-20 lg:py-24">
           <form
             onSubmit={handleLogin}
-            className="w-full max-w-md border border-hairline bg-card p-10"
+            className="w-full max-w-md border border-hairline bg-card p-6 sm:p-10"
           >
             <p className="eyebrow">Acesso restrito</p>
-            <h1 className="font-serif text-3xl text-ink mt-3">Secretaria COER</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl text-ink mt-3">Secretaria COER</h1>
             <div className="rule-gold mt-5" />
-            <p className="text-sm text-ink-soft mt-6 leading-relaxed">
+            <p className="text-sm text-ink-soft mt-5 sm:mt-6 leading-relaxed">
               Painel interno da COER. Informe a senha da Secretaria para acessar
               as candidaturas recebidas.
             </p>
-            <label className="block font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-soft mt-8 mb-2">
+            <label className="block font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-soft mt-7 sm:mt-8 mb-2">
               Senha
             </label>
             <input
@@ -184,31 +184,31 @@ const Admin = () => {
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
-          <div className="flex flex-wrap items-end justify-between gap-6 border-b border-hairline pb-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 sm:gap-6 border-b border-hairline pb-6 sm:pb-8">
             <div>
               <p className="eyebrow">Painel da Secretaria</p>
-              <h1 className="font-serif text-4xl text-ink mt-3">Candidaturas</h1>
+              <h1 className="font-serif text-3xl sm:text-4xl text-ink mt-3">Candidaturas</h1>
               <p className="text-ink-soft mt-2 text-sm">
                 {apps.length} candidatura{apps.length === 1 ? "" : "s"} registrada{apps.length === 1 ? "" : "s"}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <button onClick={exportCsv} className="btn-coer-outline">Exportar CSV</button>
-              <button onClick={logout} className="btn-coer-outline">Sair</button>
+              <button onClick={exportCsv} className="btn-coer-outline flex-1 sm:flex-none">Exportar CSV</button>
+              <button onClick={logout} className="btn-coer-outline flex-1 sm:flex-none">Sair</button>
             </div>
           </div>
 
           {/* Filtros */}
-          <div className="mt-8 flex flex-wrap gap-6 items-end">
-            <div>
+          <div className="mt-6 sm:mt-8 grid sm:flex sm:flex-wrap gap-4 sm:gap-6 sm:items-end">
+            <div className="min-w-0">
               <label className="block font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-soft mb-2">
                 Status
               </label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as "all" | Status)}
-                className="border border-hairline px-3 py-2 bg-background text-ink"
+                className="w-full sm:w-auto border border-hairline px-3 py-2 bg-background text-ink"
               >
                 <option value="all">Todos</option>
                 {(Object.keys(STATUS_LABELS) as Status[]).map((s) => (
@@ -216,14 +216,14 @@ const Admin = () => {
                 ))}
               </select>
             </div>
-            <div>
+            <div className="min-w-0">
               <label className="block font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-soft mb-2">
                 Comitê
               </label>
               <select
                 value={filterCommittee}
                 onChange={(e) => setFilterCommittee(e.target.value)}
-                className="border border-hairline px-3 py-2 bg-background text-ink min-w-[220px]"
+                className="w-full sm:min-w-[220px] border border-hairline px-3 py-2 bg-background text-ink"
               >
                 <option value="all">Todos</option>
                 {allCommittees.map(([code, name]) => (
@@ -234,8 +234,8 @@ const Admin = () => {
           </div>
 
           {/* Tabela */}
-          <div className="mt-10 border-t-2 border-ink">
-            <div className="hidden md:grid grid-cols-[110px_1.4fr_1.2fr_1fr_1.4fr_120px] gap-4 py-3 border-b border-hairline font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-soft">
+          <div className="mt-8 sm:mt-10 border-t-2 border-ink">
+            <div className="hidden lg:grid grid-cols-[110px_1.4fr_1.2fr_1fr_1.4fr_120px] gap-4 py-3 border-b border-hairline font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-soft">
               <span>Data</span>
               <span>Candidato</span>
               <span>Empresa</span>
@@ -254,23 +254,36 @@ const Admin = () => {
               filtered.map((a) => (
                 <div
                   key={a.id}
-                  className="grid md:grid-cols-[110px_1.4fr_1.2fr_1fr_1.4fr_120px] gap-2 md:gap-4 py-5 border-b border-hairline items-baseline"
+                  className="grid lg:grid-cols-[110px_1.4fr_1.2fr_1fr_1.4fr_120px] gap-y-2 lg:gap-x-4 py-5 border-b border-hairline lg:items-baseline"
                 >
-                  <span className="font-mono text-xs text-ink-soft">
-                    {new Date(a.created_at).toLocaleDateString("pt-BR")}
+                  {/* Mobile-first: candidato e ação no topo */}
+                  <div className="flex items-start justify-between gap-3 lg:contents">
+                    <span className="font-mono text-xs text-ink-soft lg:order-none">
+                      {new Date(a.created_at).toLocaleDateString("pt-BR")}
+                    </span>
+                    <button
+                      onClick={() => setOpenId(a.id)}
+                      className="lg:hidden font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink hover:text-gold-deep whitespace-nowrap"
+                    >
+                      Detalhar →
+                    </button>
+                  </div>
+                  <span className="min-w-0">
+                    <span className="block font-serif text-base sm:text-lg text-ink break-anywhere">{a.full_name}</span>
+                    <span className="block text-xs text-ink-soft break-anywhere">{a.email}</span>
                   </span>
-                  <span>
-                    <span className="block font-serif text-lg text-ink">{a.full_name}</span>
-                    <span className="block text-xs text-ink-soft">{a.email}</span>
+                  <span className="text-sm text-ink break-anywhere">
+                    <span className="lg:hidden font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink-soft mr-2">Empresa:</span>
+                    {a.company}
                   </span>
-                  <span className="text-sm text-ink">{a.company}</span>
-                  <StatusBadge status={a.status} />
+                  <span className="self-start"><StatusBadge status={a.status} /></span>
                   <span className="text-xs text-ink-soft">
+                    <span className="lg:hidden font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink-soft mr-2">Comitês:</span>
                     {a.committees.map((c) => c.code).join(" · ") || "—"}
                   </span>
                   <button
                     onClick={() => setOpenId(a.id)}
-                    className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink hover:text-gold-deep md:text-right"
+                    className="hidden lg:block font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink hover:text-gold-deep lg:text-right"
                   >
                     Detalhar →
                   </button>
@@ -324,20 +337,20 @@ const DetailDrawer = ({
         className="w-full max-w-2xl bg-paper h-full overflow-y-auto border-l border-hairline"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="border-b border-hairline px-8 py-6 flex items-center justify-between">
+        <div className="sticky top-0 z-10 bg-paper border-b border-hairline px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-3">
           <div>
             <p className="eyebrow">Candidatura</p>
-            <h2 className="font-serif text-2xl text-ink mt-1">{app.full_name}</h2>
+            <h2 className="font-serif text-xl sm:text-2xl text-ink mt-1 break-anywhere">{app.full_name}</h2>
           </div>
           <button
             onClick={onClose}
-            className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft hover:text-ink"
+            className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft hover:text-ink whitespace-nowrap"
           >
             Fechar ✕
           </button>
         </div>
 
-        <div className="px-8 py-8 grid gap-8">
+        <div className="px-5 sm:px-8 py-6 sm:py-8 grid gap-7 sm:gap-8">
           <Section title="Identificação">
             <Row k="Empresa" v={app.company} />
             <Row k="WhatsApp" v={app.whatsapp} />
@@ -405,7 +418,7 @@ const DetailDrawer = ({
               onClick={async () => {
                 await onUpdate(app.id, { status, internal_notes: notes });
               }}
-              className="btn-coer self-start"
+              className="btn-coer w-full sm:w-auto sm:self-start"
             >
               Salvar alterações
             </button>
@@ -426,9 +439,9 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 );
 
 const Row = ({ k, v }: { k: string; v: string }) => (
-  <div className="grid grid-cols-[140px_1fr] gap-4 text-sm">
-    <span className="text-ink-soft">{k}</span>
-    <span className="text-ink">{v}</span>
+  <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-1 sm:gap-4 text-sm">
+    <span className="text-ink-soft text-xs sm:text-sm uppercase sm:normal-case tracking-wider sm:tracking-normal">{k}</span>
+    <span className="text-ink break-anywhere">{v}</span>
   </div>
 );
 
