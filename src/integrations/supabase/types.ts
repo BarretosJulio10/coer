@@ -14,7 +14,132 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      application_committees: {
+        Row: {
+          application_id: string
+          committee_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          application_id: string
+          committee_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          application_id?: string
+          committee_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "application_committees_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "application_committees_committee_id_fkey"
+            columns: ["committee_id"]
+            isOneToOne: false
+            referencedRelation: "committees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      applications: {
+        Row: {
+          company: string
+          created_at: string
+          email: string
+          experience: string
+          full_name: string
+          hours_per_week: string
+          id: string
+          internal_notes: string | null
+          motivation: string | null
+          prior_participation: boolean
+          prior_participation_details: string | null
+          status: Database["public"]["Enums"]["application_status"]
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          email: string
+          experience: string
+          full_name: string
+          hours_per_week: string
+          id?: string
+          internal_notes?: string | null
+          motivation?: string | null
+          prior_participation?: boolean
+          prior_participation_details?: string | null
+          status?: Database["public"]["Enums"]["application_status"]
+          updated_at?: string
+          whatsapp: string
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          email?: string
+          experience?: string
+          full_name?: string
+          hours_per_week?: string
+          id?: string
+          internal_notes?: string | null
+          motivation?: string | null
+          prior_participation?: boolean
+          prior_participation_details?: string | null
+          status?: Database["public"]["Enums"]["application_status"]
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
+      committees: {
+        Row: {
+          activities: Json
+          code: string
+          created_at: string
+          dedication: string
+          id: string
+          name: string
+          reports_to: string
+          sort_order: number
+          vacancies: string
+          why_exists: string
+        }
+        Insert: {
+          activities?: Json
+          code: string
+          created_at?: string
+          dedication: string
+          id?: string
+          name: string
+          reports_to: string
+          sort_order?: number
+          vacancies: string
+          why_exists: string
+        }
+        Update: {
+          activities?: Json
+          code?: string
+          created_at?: string
+          dedication?: string
+          id?: string
+          name?: string
+          reports_to?: string
+          sort_order?: number
+          vacancies?: string
+          why_exists?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +148,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      application_status: "pendente" | "em_analise" | "aprovado" | "rejeitado"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +275,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      application_status: ["pendente", "em_analise", "aprovado", "rejeitado"],
+    },
   },
 } as const
