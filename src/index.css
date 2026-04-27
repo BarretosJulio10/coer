@@ -2,95 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/*
+  COER — Design System
+  Linguagem visual: documento institucional, papel quente, tinta marinho profunda,
+  acentos em ouro velho. Inspirado em relatórios anuais e cartas de fundação de
+  associações técnicas brasileiras. Todas as cores em HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Papel — fundo principal, levemente bege */
+    --background: 42 33% 95%;
+    --foreground: 215 50% 14%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Papel mais claro — cards/seções alternadas */
+    --card: 40 30% 97%;
+    --card-foreground: 215 50% 14%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 30% 97%;
+    --popover-foreground: 215 50% 14%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Marinho COER (extraído da logo) */
+    --primary: 215 65% 14%;
+    --primary-foreground: 42 33% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Ouro velho COER (extraído da logo) */
+    --accent: 41 50% 47%;
+    --accent-foreground: 215 65% 14%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Tons de papel envelhecido */
+    --secondary: 40 25% 90%;
+    --secondary-foreground: 215 50% 14%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 40 20% 88%;
+    --muted-foreground: 215 15% 38%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 60% 38%;
+    --destructive-foreground: 42 33% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Linha hairline — bordas e divisores discretos */
+    --border: 40 22% 80%;
+    --input: 40 22% 78%;
+    --ring: 215 65% 14%;
 
-    --radius: 0.5rem;
+    /* Tokens semânticos extras COER */
+    --ink: 215 50% 14%;          /* tinta principal */
+    --ink-soft: 215 25% 28%;     /* tinta secundária */
+    --gold: 41 50% 47%;          /* ouro institucional */
+    --gold-deep: 38 55% 38%;     /* ouro envelhecido */
+    --paper: 42 33% 95%;
+    --paper-deep: 38 28% 90%;
+    --hairline: 40 22% 80%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 0.125rem; /* cantos quase retos — institucional */
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 215 65% 14%;
+    --sidebar-foreground: 42 33% 95%;
+    --sidebar-primary: 41 50% 47%;
+    --sidebar-primary-foreground: 215 65% 14%;
+    --sidebar-accent: 215 50% 22%;
+    --sidebar-accent-foreground: 42 33% 95%;
+    --sidebar-border: 215 40% 25%;
+    --sidebar-ring: 41 50% 47%;
   }
 }
 
@@ -99,7 +72,94 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  .font-serif {
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-feature-settings: "ss01";
+  }
+
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+
+  /* Régua dourada — separador institucional */
+  .rule-gold {
+    height: 1px;
+    background: hsl(var(--gold));
+    width: 64px;
+  }
+
+  .rule-gold-full {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      hsl(var(--gold) / 0.6),
+      hsl(var(--gold) / 0.15) 60%,
+      transparent
+    );
+  }
+
+  /* Sobrelinha tipográfica */
+  .eyebrow {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.22em] text-[hsl(var(--gold-deep))];
+  }
+
+  /* Numeração serifada grande dos comitês */
+  .committee-code {
+    font-family: "Fraunces", Georgia, serif;
+    font-feature-settings: "ss01";
+    color: hsl(var(--gold));
+  }
+
+  /* Texto editorial — coluna estreita, leitura confortável */
+  .prose-editorial p {
+    @apply text-[1.0625rem] leading-[1.75] text-[hsl(var(--ink-soft))];
+  }
+  .prose-editorial p + p {
+    @apply mt-5;
+  }
+
+  /* Marca d'água sutil */
+  .watermark {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      hsl(var(--ink) / 0.05) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+  }
+}
+
+@layer components {
+  /* Botão institucional COER — retangular, ouro, sublinhado no hover */
+  .btn-coer {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] transition-all;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--primary));
+  }
+  .btn-coer:hover {
+    background: hsl(var(--ink));
+    box-shadow: 0 0 0 3px hsl(var(--gold) / 0.25);
+  }
+
+  .btn-coer-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] transition-all;
+    color: hsl(var(--primary));
+    background: transparent;
+    border: 1px solid hsl(var(--primary));
+  }
+  .btn-coer-outline:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 }

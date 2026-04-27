@@ -13,12 +13,24 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Fraunces", "Georgia", "serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        ink: "hsl(var(--ink))",
+        "ink-soft": "hsl(var(--ink-soft))",
+        gold: "hsl(var(--gold))",
+        "gold-deep": "hsl(var(--gold-deep))",
+        paper: "hsl(var(--paper))",
+        "paper-deep": "hsl(var(--paper-deep))",
+        hairline: "hsl(var(--hairline))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
