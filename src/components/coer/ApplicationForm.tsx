@@ -142,24 +142,24 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
       onSubmit={handleSubmit(onSubmit)}
       className="border border-hairline bg-card"
     >
-      <div className="border-b border-hairline px-8 lg:px-12 py-6 flex items-baseline justify-between flex-wrap gap-3">
+      <div className="border-b border-hairline px-5 sm:px-8 lg:px-12 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-3">
         <div>
           <p className="eyebrow">Anexo I</p>
-          <h3 className="font-serif text-2xl text-ink mt-1">Ficha de Candidatura</h3>
+          <h3 className="font-serif text-xl sm:text-2xl text-ink mt-1">Ficha de Candidatura</h3>
         </div>
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">
+        <p className="font-mono text-[0.65rem] sm:text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft break-anywhere">
           Enviar para: secretaria@coer.org.br
         </p>
       </div>
 
-      <div className="px-8 lg:px-12 py-10 grid gap-8">
+      <div className="px-5 sm:px-8 lg:px-12 py-8 sm:py-10 grid gap-7 sm:gap-8">
         {/* Identificação */}
         <fieldset className="grid gap-6">
           <legend className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-gold-deep">
             § 1 — Identificação
           </legend>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
             <Field label="Nome completo" error={errors.full_name?.message}>
               <input className="coer-input" {...register("full_name")} />
             </Field>
@@ -196,7 +196,7 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
               return (
                 <label
                   key={c.id}
-                  className={`flex items-start gap-3 border px-4 py-3 cursor-pointer transition-colors ${
+                  className={`flex items-start gap-3 border px-3 sm:px-4 py-3 cursor-pointer transition-colors ${
                     checked
                       ? "border-primary bg-primary/[0.04]"
                       : "border-hairline hover:border-ink-soft/40"
@@ -208,11 +208,11 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
                     onChange={() => toggleCommittee(c.id)}
                     className="mt-1 accent-primary"
                   />
-                  <span className="grid">
+                  <span className="grid min-w-0">
                     <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-gold-deep">
                       {c.code}
                     </span>
-                    <span className="font-serif text-base text-ink leading-snug">
+                    <span className="font-serif text-sm sm:text-base text-ink leading-snug break-anywhere">
                       {c.name.replace(/^Comit[êe] (de |Editorial|Pedagógico|Regulatório)?/i, "").trim() || c.name}
                     </span>
                   </span>
@@ -242,7 +242,7 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
             />
           </Field>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-6">
             <div>
               <Label>Horas disponíveis por semana</Label>
               <div className="grid gap-2">
@@ -319,11 +319,11 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
           <p className="text-sm text-destructive">{errors.consent.message as string}</p>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-4 pt-2">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-soft">
             Vagas: 2 a 3 por comitê · Reuniões mensais por videoconferência
           </p>
-          <button type="submit" disabled={isSubmitting} className="btn-coer disabled:opacity-60">
+          <button type="submit" disabled={isSubmitting} className="btn-coer disabled:opacity-60 w-full sm:w-auto">
             {isSubmitting ? "Enviando…" : "Enviar candidatura"}
           </button>
         </div>

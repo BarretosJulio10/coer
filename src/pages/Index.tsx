@@ -51,27 +51,27 @@ const Index = () => {
         {/* HERO */}
         <section className="relative border-b border-hairline">
           <div className="absolute inset-0 watermark opacity-60 pointer-events-none" />
-          <div className="relative max-w-[1240px] mx-auto px-6 lg:px-10 pt-20 pb-24">
+          <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24">
             <p className="eyebrow">
               Chamada de Voluntários · Junho de 2026 · Campinas/SP
             </p>
-            <h1 className="font-serif font-semibold text-ink mt-6 leading-[0.96] tracking-tight text-[clamp(2.5rem,6vw,5.25rem)] max-w-[18ch]">
+            <h1 className="font-serif font-semibold text-ink mt-5 sm:mt-6 leading-[0.98] sm:leading-[0.96] tracking-tight text-[clamp(2rem,8vw,5.25rem)] max-w-[18ch]">
               Comitês Temáticos<br/>
               <span className="italic font-normal text-ink-soft">da COER.</span>
             </h1>
-            <div className="rule-gold mt-10" />
-            <p className="mt-8 max-w-[58ch] text-lg leading-relaxed text-ink-soft">
+            <div className="rule-gold mt-8 sm:mt-10" />
+            <p className="mt-6 sm:mt-8 max-w-[58ch] text-base sm:text-lg leading-relaxed text-ink-soft">
               O que você vai fazer e por que importa. Dez comitês — o coração
               operacional da entidade. As vagas são limitadas. O trabalho é
               voluntário; o impacto é real.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#comites" className="btn-coer">Ver os 10 comitês</a>
-              <a href="#candidatura" className="btn-coer-outline">Preencher candidatura</a>
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+              <a href="#comites" className="btn-coer w-full sm:w-auto">Ver os 10 comitês</a>
+              <a href="#candidatura" className="btn-coer-outline w-full sm:w-auto">Preencher candidatura</a>
             </div>
 
             {/* Cabeçalho de documento */}
-            <div className="mt-20 grid sm:grid-cols-3 gap-6 border-t border-hairline pt-8 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">
+            <div className="mt-14 sm:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 border-t border-hairline pt-6 sm:pt-8 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">
               <div>
                 <span className="block text-gold-deep">Documento</span>
                 <span className="text-ink">Chamada Oficial · 2026</span>
@@ -90,10 +90,10 @@ const Index = () => {
 
         {/* CARTA DO FUNDADOR */}
         <section className="border-b border-hairline">
-          <div className="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 grid lg:grid-cols-[260px_1fr] gap-12 lg:gap-20">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
             <aside className="lg:sticky lg:top-28 self-start">
               <p className="eyebrow">Carta aberta</p>
-              <h2 className="font-serif text-3xl text-ink mt-3 leading-tight">
+              <h2 className="font-serif text-2xl sm:text-3xl text-ink mt-3 leading-tight">
                 Aos colegas do setor.
               </h2>
               <div className="rule-gold mt-6" />
@@ -136,20 +136,20 @@ const Index = () => {
 
         {/* COMO FUNCIONAM */}
         <section className="border-b border-hairline bg-paper-deep/40">
-          <div className="max-w-[1240px] mx-auto px-6 lg:px-10 py-24">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
             <p className="eyebrow">Capítulo I</p>
-            <h2 className="font-serif text-4xl lg:text-5xl text-ink mt-3 max-w-[20ch]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink mt-3 max-w-[20ch] leading-tight">
               Como funcionam<br/>os comitês.
             </h2>
             <div className="rule-gold mt-8" />
 
-            <ol className="mt-14 grid md:grid-cols-2 gap-x-16 gap-y-10">
+            <ol className="mt-10 sm:mt-14 grid md:grid-cols-2 gap-x-10 lg:gap-x-16 gap-y-8 sm:gap-y-10">
               {rules.map((rule, i) => (
-                <li key={i} className="grid grid-cols-[auto_1fr] gap-6 items-start">
-                  <span className="font-serif text-3xl committee-code leading-none">
+                <li key={i} className="grid grid-cols-[auto_1fr] gap-4 sm:gap-6 items-start">
+                  <span className="font-serif text-2xl sm:text-3xl committee-code leading-none">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-ink-soft leading-relaxed pt-1">{rule}</p>
+                  <p className="text-sm sm:text-base text-ink-soft leading-relaxed pt-0.5 sm:pt-1">{rule}</p>
                 </li>
               ))}
             </ol>
@@ -158,21 +158,21 @@ const Index = () => {
 
         {/* ÍNDICE DOS COMITÊS */}
         <section id="comites" className="scroll-mt-24 border-b border-hairline">
-          <div className="max-w-[1240px] mx-auto px-6 lg:px-10 py-24">
-            <div className="flex items-end justify-between flex-wrap gap-6">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
+            <div className="flex items-start sm:items-end justify-between flex-wrap gap-4 sm:gap-6">
               <div>
                 <p className="eyebrow">Capítulo II</p>
-                <h2 className="font-serif text-4xl lg:text-5xl text-ink mt-3">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink mt-3">
                   Sumário dos comitês.
                 </h2>
               </div>
-              <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft max-w-[28ch] text-right">
+              <p className="font-mono text-[0.65rem] sm:text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft max-w-[28ch] sm:text-right">
                 Dez comitês · 20 a 30 vagas no total
               </p>
             </div>
             <div className="rule-gold mt-8" />
 
-            <div className="mt-14 border-t-2 border-ink">
+            <div className="mt-10 sm:mt-14 border-t-2 border-ink">
               {/* Cabeçalho de tabela tipográfica */}
               <div className="hidden md:grid grid-cols-[64px_1fr_1.2fr_1fr_120px] gap-6 py-3 border-b border-hairline font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-soft">
                 <span>Cód.</span>
@@ -185,17 +185,20 @@ const Index = () => {
                 <Link
                   to={`/comite/${c.code.toLowerCase()}`}
                   key={c.id}
-                  className="grid md:grid-cols-[64px_1fr_1.2fr_1fr_120px] gap-2 md:gap-6 py-6 border-b border-hairline group hover:bg-card transition-colors items-baseline"
+                  className="grid grid-cols-[56px_1fr_auto] md:grid-cols-[64px_1fr_1.2fr_1fr_120px] gap-x-4 gap-y-1 md:gap-6 py-5 md:py-6 border-b border-hairline group hover:bg-card transition-colors md:items-baseline"
                 >
-                  <span className="committee-code font-serif text-3xl md:text-2xl">
+                  <span className="committee-code font-serif text-2xl sm:text-3xl md:text-2xl row-span-2 md:row-span-1 self-start">
                     {c.code}
                   </span>
-                  <span className="font-serif text-xl md:text-lg text-ink leading-snug">
+                  <span className="font-serif text-lg sm:text-xl md:text-lg text-ink leading-snug">
                     {c.name.replace(/^Comitê /, "")}
                   </span>
-                  <span className="text-sm text-ink-soft">{c.reports_to}</span>
-                  <span className="text-sm text-ink-soft">{c.dedication}</span>
-                  <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink md:text-right">
+                  <span className="hidden md:block text-sm text-ink-soft">{c.reports_to}</span>
+                  <span className="hidden md:block text-sm text-ink-soft">{c.dedication}</span>
+                  <span className="md:hidden col-start-2 text-xs text-ink-soft">
+                    {c.reports_to} · {c.dedication}
+                  </span>
+                  <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink md:text-right self-start row-start-1 col-start-3 md:row-start-auto md:col-start-auto">
                     Ver →
                     <span className="block h-px bg-gold mt-1 scale-x-0 group-hover:scale-x-100 origin-right transition-transform" />
                   </span>
@@ -207,16 +210,16 @@ const Index = () => {
 
         {/* CANDIDATURA */}
         <section id="candidatura" className="scroll-mt-24 bg-paper-deep/40">
-          <div className="max-w-[1240px] mx-auto px-6 lg:px-10 py-24">
-            <div className="grid lg:grid-cols-[280px_1fr] gap-12 lg:gap-20 mb-12 items-end">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
+            <div className="grid lg:grid-cols-[280px_1fr] gap-8 lg:gap-20 mb-10 sm:mb-12 items-end">
               <div>
                 <p className="eyebrow">Capítulo III</p>
-                <h2 className="font-serif text-4xl lg:text-5xl text-ink mt-3 leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink mt-3 leading-tight">
                   Sua candidatura.
                 </h2>
                 <div className="rule-gold mt-6" />
               </div>
-              <p className="text-ink-soft leading-relaxed max-w-[58ch]">
+              <p className="text-ink-soft leading-relaxed max-w-[58ch] text-sm sm:text-base">
                 Preencha a ficha abaixo. Você pode se candidatar a mais de um
                 comitê. A Secretaria conduzirá a verificação de antecedentes e
                 encaminhará sua ficha ao Diretor responsável.

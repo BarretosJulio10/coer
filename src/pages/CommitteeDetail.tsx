@@ -55,7 +55,7 @@ const CommitteeDetail = () => {
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <article className="max-w-[1240px] mx-auto px-6 lg:px-10 pt-16 pb-24">
+        <article className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24">
           <Link
             to="/#comites"
             className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft hover:text-ink transition-colors"
@@ -63,19 +63,19 @@ const CommitteeDetail = () => {
             ← Sumário dos comitês
           </Link>
 
-          <header className="mt-10 grid lg:grid-cols-[200px_1fr] gap-10 items-start border-b border-hairline pb-12">
+          <header className="mt-8 sm:mt-10 grid lg:grid-cols-[200px_1fr] gap-6 sm:gap-10 items-start border-b border-hairline pb-10 sm:pb-12">
             <div>
               <p className="eyebrow">Comitê</p>
-              <p className="committee-code font-serif text-[6.5rem] leading-none mt-2">
+              <p className="committee-code font-serif text-[clamp(3.5rem,14vw,6.5rem)] leading-none mt-2 break-anywhere">
                 {committee.code}
               </p>
             </div>
             <div>
-              <h1 className="font-serif text-4xl lg:text-5xl text-ink leading-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink leading-tight break-anywhere">
                 {committee.name}
               </h1>
               <div className="rule-gold mt-6" />
-              <dl className="mt-8 grid sm:grid-cols-3 gap-6 font-mono text-[0.7rem] uppercase tracking-[0.18em]">
+              <dl className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 font-mono text-[0.7rem] uppercase tracking-[0.18em]">
                 <Meta label="Reporta-se a" value={committee.reports_to} />
                 <Meta label="Vagas" value={committee.vacancies} />
                 <Meta label="Dedicação" value={committee.dedication} />
@@ -83,34 +83,34 @@ const CommitteeDetail = () => {
             </div>
           </header>
 
-          <section className="mt-16 grid lg:grid-cols-[200px_1fr] gap-10">
+          <section className="mt-12 sm:mt-16 grid lg:grid-cols-[200px_1fr] gap-6 sm:gap-10">
             <p className="eyebrow lg:pt-2">§ 1 — Por que existe</p>
             <div className="prose-editorial max-w-[68ch]">
               <p>{committee.why_exists}</p>
             </div>
           </section>
 
-          <section className="mt-20 grid lg:grid-cols-[200px_1fr] gap-10">
+          <section className="mt-14 sm:mt-20 grid lg:grid-cols-[200px_1fr] gap-6 sm:gap-10">
             <p className="eyebrow lg:pt-2">§ 2 — O que você fará</p>
             <ol className="grid gap-6 max-w-[68ch] border-t border-hairline">
               {committee.activities.map((act, i) => (
-                <li key={i} className="grid grid-cols-[auto_1fr] gap-6 pt-6 border-b border-hairline pb-6 last:border-b-0">
-                  <span className="font-serif text-2xl committee-code leading-none w-10">
+                <li key={i} className="grid grid-cols-[auto_1fr] gap-4 sm:gap-6 pt-5 sm:pt-6 border-b border-hairline pb-5 sm:pb-6 last:border-b-0">
+                  <span className="font-serif text-xl sm:text-2xl committee-code leading-none w-9 sm:w-10">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-ink-soft leading-relaxed">{act}</p>
+                  <p className="text-sm sm:text-base text-ink-soft leading-relaxed">{act}</p>
                 </li>
               ))}
             </ol>
           </section>
 
-          <div className="mt-20 border-t border-hairline pt-10 flex flex-wrap gap-4 items-center justify-between">
+          <div className="mt-14 sm:mt-20 border-t border-hairline pt-8 sm:pt-10 flex flex-col sm:flex-row flex-wrap gap-4 sm:items-center sm:justify-between">
             <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft max-w-[40ch]">
               Mandato de 2 anos · Verificação de antecedentes obrigatória
             </p>
             <Link
               to={`/?comite=${committee.code}#candidatura`}
-              className="btn-coer"
+              className="btn-coer w-full sm:w-auto"
             >
               Candidatar-se ao {committee.code}
             </Link>

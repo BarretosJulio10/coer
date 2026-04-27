@@ -128,6 +128,23 @@
     @apply mt-5;
   }
 
+  /* Wrapper de tabela responsiva: vira lista de cartões em mobile */
+  .coer-row {
+    @apply grid gap-2 md:gap-6 py-5 md:py-6 border-b border-hairline;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .coer-row {
+      align-items: baseline;
+    }
+  }
+
+  /* Garante quebra de palavras longas (URLs, e-mails) */
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   /* Marca d'água sutil */
   .watermark {
     background-image: radial-gradient(
