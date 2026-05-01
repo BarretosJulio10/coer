@@ -339,11 +339,12 @@ const StatusBadge = ({ status }: { status: Status }) => {
 };
 
 const DetailDrawer = ({
-  app, onClose, onUpdate,
+  app, onClose, onUpdate, onDelete,
 }: {
   app: AdminApplication;
   onClose: () => void;
   onUpdate: (id: string, patch: Partial<{ status: Status; internal_notes: string }>) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }) => {
   const [notes, setNotes] = useState(app.internal_notes ?? "");
   const [status, setStatus] = useState<Status>(app.status);
@@ -439,6 +440,30 @@ const DetailDrawer = ({
             >
               Salvar alterações
             </button>
+
+            {app.status === "rejeitado" && (
+              <div className="border-t border-hairline pt-5 mt-1">
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-destructive mb-2">
+                  Zona de risco
+                </p>
+                <p className="text-sm text-ink-soft mb-4 leading-relaxed">
+                  Esta candidatura foi rejeitada. Você pode excluí-la
+                  permanentemente do sistema. Esta ação não pode ser desfeita.
+                </p>
+                <button
+                  onClick={async () => {
+                    const ok = window.confirm(
+                      `Excluir definitivamente a candidatura de ${app.full_name}? Esta ação não pode ser desfeita.`,
+                    );
+                    if (!ok) return;
+                    await onDelete(app.id);
+                  }}
+                  className="w-full sm:w-auto sm:self-start border border-destructive text-destructive px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] hover:bg-destructive hover:text-destructive-foreground transition-colors"
+                >
+                  Excluir candidatura
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
