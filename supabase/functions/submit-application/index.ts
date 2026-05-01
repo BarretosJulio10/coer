@@ -12,6 +12,7 @@ interface Payload {
   prior_participation_details?: string | null;
   motivation?: string | null;
   committee_ids: string[];
+  photo_url: string;
 }
 
 const VALID_HOURS = ["1-2", "2-3", "3+"];
@@ -40,6 +41,8 @@ Deno.serve(async (req) => {
   if (!Array.isArray(body.committee_ids) || body.committee_ids.length === 0) {
     errors.push("Selecione ao menos um comitê");
   }
+  if (!body.photo_url) errors.push("A foto do candidato é obrigatória");
+
   if (errors.length) return json({ error: errors.join("; ") }, 400);
 
   const supabase = createClient(
@@ -61,6 +64,7 @@ Deno.serve(async (req) => {
         ? (body.prior_participation_details ?? "").toString().slice(0, 300) || null
         : null,
       motivation: body.motivation ? body.motivation.toString().slice(0, 2000) : null,
+      photo_url: body.photo_url,
     })
     .select("id")
     .single();
