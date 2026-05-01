@@ -463,6 +463,7 @@ const DetailDrawer = ({
   onClose: () => void;
   onUpdate: (id: string, patch: Partial<{ status: Status; internal_notes: string }>) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
+  onPrint: (app: AdminApplication) => void;
 }) => {
   const [notes, setNotes] = useState(app.internal_notes ?? "");
   const [status, setStatus] = useState<Status>(app.status);
@@ -478,12 +479,20 @@ const DetailDrawer = ({
             <p className="eyebrow">Candidatura</p>
             <h2 className="font-serif text-xl sm:text-2xl text-ink mt-1 break-anywhere">{app.full_name}</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft hover:text-ink whitespace-nowrap"
-          >
-            Fechar ✕
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => onPrint(app)}
+              className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-primary hover:text-gold-deep whitespace-nowrap border border-primary/20 px-3 py-1.5 hover:bg-primary/5 transition-colors"
+            >
+              Imprimir (PDF)
+            </button>
+            <button
+              onClick={onClose}
+              className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft hover:text-ink whitespace-nowrap"
+            >
+              Fechar ✕
+            </button>
+          </div>
         </div>
 
         <div className="px-5 sm:px-8 py-6 sm:py-8 grid gap-7 sm:gap-8">
