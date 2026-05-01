@@ -61,6 +61,7 @@ export type Database = {
           id: string
           internal_notes: string | null
           motivation: string | null
+          photo_url: string | null
           prior_participation: boolean
           prior_participation_details: string | null
           status: Database["public"]["Enums"]["application_status"]
@@ -77,6 +78,7 @@ export type Database = {
           id?: string
           internal_notes?: string | null
           motivation?: string | null
+          photo_url?: string | null
           prior_participation?: boolean
           prior_participation_details?: string | null
           status?: Database["public"]["Enums"]["application_status"]
@@ -93,6 +95,7 @@ export type Database = {
           id?: string
           internal_notes?: string | null
           motivation?: string | null
+          photo_url?: string | null
           prior_participation?: boolean
           prior_participation_details?: string | null
           status?: Database["public"]["Enums"]["application_status"]
