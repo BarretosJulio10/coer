@@ -1,3 +1,119 @@
+  const printApplication = (app: AdminApplication) => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    const committeesHtml = app.committees
+      .map(c => `<li><strong>${c.code}</strong> — ${c.name}</li>`)
+      .join('');
+
+    const photoHtml = app.photo_url 
+      ? `<img src="${app.photo_url}" style="width: 120px; height: 160px; object-fit: cover; border: 1px solid #d1d1d1;">`
+      : `<div style="width: 120px; height: 160px; border: 1px solid #d1d1d1; background: #f9f9f9; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999;">SEM FOTO</div>`;
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Ficha - ${app.full_name}</title>
+        <style>
+          @page { size: A4; margin: 2cm; }
+          body { font-family: 'Inter', -apple-system, sans-serif; color: #1a1a1a; line-height: 1.5; font-size: 12px; margin: 0; padding: 0; }
+          .header { border-bottom: 2px solid #1a1a1a; padding-bottom: 10px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; }
+          .header h1 { font-family: serif; font-size: 26px; margin: 0; }
+          .header p { margin: 0; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+          .photo-section { float: right; margin-left: 20px; margin-bottom: 20px; }
+          .section { margin-bottom: 25px; clear: both; }
+          .section-title { font-weight: bold; text-transform: uppercase; font-size: 10px; letter-spacing: 1.5px; color: #b8860b; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 12px; }
+          .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px 30px; }
+          .field-label { color: #666; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+          .field-value { font-size: 12px; color: #1a1a1a; }
+          ul { padding-left: 18px; margin: 0; list-style-type: square; }
+          li { margin-bottom: 6px; }
+          .footer { margin-top: 50px; border-top: 1px solid #eee; padding-top: 15px; font-size: 9px; color: #999; text-align: center; }
+          @media print { .no-print { display: none; } }
+        </style>
+      </head>
+      <body>
+        <div class="no-print" style="background: #f4f4f4; padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+          <button onclick="window.print()" style="padding: 8px 16px; cursor: pointer;">Imprimir Ficha (A4)</button>
+        </div>
+        <div style="padding: 20px;">
+          <div class="header">
+            <div>
+              <p>Confederação de Entidades e Representações</p>
+              <h1>Ficha de Candidatura</h1>
+            </div>
+            <p>ID: ${app.id.slice(0, 8)}</p>
+          </div>
+
+          <div class="photo-section">
+            ${photoHtml}
+          </div>
+
+          <div class="section">
+            <div class="section-title">§ 1 — Identificação</div>
+            <div class="grid">
+              <div>
+                <div class="field-label">Nome Completo</div>
+                <div class="field-value">${app.full_name}</div>
+              </div>
+              <div>
+                <div class="field-label">Empresa / Razão Social</div>
+                <div class="field-value">${app.company}</div>
+              </div>
+              <div>
+                <div class="field-label">WhatsApp</div>
+                <div class="field-value">${app.whatsapp}</div>
+              </div>
+              <div>
+                <div class="field-label">E-mail Corporativo</div>
+                <div class="field-value">${app.email}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">§ 2 — Comitês de Interesse</div>
+            <ul>${committeesHtml}</ul>
+          </div>
+
+          <div class="section">
+            <div class="section-title">§ 3 — Experiência e Disponibilidade</div>
+            <div class="grid">
+              <div>
+                <div class="field-label">Disponibilidade Semanal</div>
+                <div class="field-value">${app.hours_per_week} horas</div>
+              </div>
+              <div>
+                <div class="field-label">Participação Anterior</div>
+                <div class="field-value">${app.prior_participation ? 'Sim' : 'Não'} ${app.prior_participation_details ? `— ${app.prior_participation_details}` : ''}</div>
+              </div>
+            </div>
+            <div style="margin-top: 15px;">
+              <div class="field-label">Relato de Experiência</div>
+              <div class="field-value" style="white-space: pre-wrap;">${app.experience}</div>
+            </div>
+          </div>
+
+          ${app.motivation ? `
+          <div class="section">
+            <div class="section-title">Motivação / Intenção</div>
+            <div class="field-value" style="font-style: italic; white-space: pre-wrap;">${app.motivation}</div>
+          </div>
+          ` : ''}
+
+          <div class="footer">
+            COER — Documento Oficial da Secretaria Geral · Gerado em ${new Date().toLocaleDateString('pt-BR')}
+          </div>
+        </div>
+        <script>window.onload = () => { setTimeout(() => { window.print(); }, 500); }</script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(html);
+    printWindow.document.close();
+  };
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/coer/SiteHeader";
@@ -317,6 +433,7 @@ const Admin = () => {
           onClose={() => setOpenId(null)}
           onUpdate={updateApp}
           onDelete={deleteApp}
+          onPrint={printApplication}
         />
       )}
 
