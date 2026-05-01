@@ -120,6 +120,22 @@ const Admin = () => {
     }
   };
 
+  const deleteApp = async (id: string) => {
+    if (!token) return;
+    try {
+      const { error } = await supabase.functions.invoke("admin-delete-application", {
+        headers: { "x-admin-token": token },
+        body: { id },
+      });
+      if (error) throw error;
+      setApps((prev) => prev.filter((a) => a.id !== id));
+      setOpenId(null);
+      toast.success("Candidatura excluída.");
+    } catch {
+      toast.error("Falha ao excluir.");
+    }
+  };
+
   const exportCsv = async () => {
     if (!token) return;
     try {
@@ -299,6 +315,7 @@ const Admin = () => {
           app={open}
           onClose={() => setOpenId(null)}
           onUpdate={updateApp}
+          onDelete={deleteApp}
         />
       )}
 
