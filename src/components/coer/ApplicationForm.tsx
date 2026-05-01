@@ -221,27 +221,7 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
               )}
             </div>
 
-            <div className="flex-1 grid sm:grid-cols-2 gap-5 sm:gap-6 w-full">
-              <Field label="Nome completo" error={errors.full_name?.message}>
-                <input className="coer-input" {...register("full_name")} />
-              </Field>
-              <Field label="Empresa / Razão Social" error={errors.company?.message}>
-                <input className="coer-input" {...register("company")} />
-              </Field>
-              <Field label="WhatsApp" error={errors.whatsapp?.message}>
-                <input
-                  className="coer-input"
-                  placeholder="(11) 9 0000-0000"
-                  {...register("whatsapp")}
-                />
-              </Field>
-              <Field label="E-mail corporativo" error={errors.email?.message}>
-                <input className="coer-input" type="email" {...register("email")} />
-              </Field>
-            </div>
-          </div>
-        </fieldset>
-          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
+          <div className="flex-1 grid sm:grid-cols-2 gap-5 sm:gap-6 w-full">
             <Field label="Nome completo" error={errors.full_name?.message}>
               <input className="coer-input" {...register("full_name")} />
             </Field>
@@ -259,7 +239,8 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
               <input className="coer-input" type="email" {...register("email")} />
             </Field>
           </div>
-        </fieldset>
+        </div>
+      </fieldset>
 
         <Divider />
 
