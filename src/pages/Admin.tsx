@@ -20,6 +20,7 @@ interface AdminApplication {
   status: Status;
   internal_notes: string | null;
   created_at: string;
+  photo_url: string | null;
   committees: { code: string; name: string }[];
 }
 
@@ -370,6 +371,16 @@ const DetailDrawer = ({
 
         <div className="px-5 sm:px-8 py-6 sm:py-8 grid gap-7 sm:gap-8">
           <Section title="Identificação">
+            {app.photo_url && (
+              <div className="mb-4">
+                <p className="text-ink-soft text-xs uppercase tracking-wider mb-2">Foto do Candidato</p>
+                <img 
+                  src={app.photo_url} 
+                  alt={app.full_name} 
+                  className="w-32 h-40 object-cover border border-hairline shadow-sm"
+                />
+              </div>
+            )}
             <Row k="Empresa" v={app.company} />
             <Row k="WhatsApp" v={app.whatsapp} />
             <Row k="E-mail" v={app.email} />
