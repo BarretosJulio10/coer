@@ -20,6 +20,7 @@ const schema = z.object({
     errorMap: () => ({ message: "É necessário confirmar o aceite" }),
   }),
   committee_ids: z.array(z.string().uuid()).min(1, "Selecione ao menos um comitê"),
+  photo_url: z.string().min(1, "A foto do candidato é obrigatória"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -31,6 +32,8 @@ interface Props {
 
 export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
   const [submitted, setSubmitted] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
   const {
     register,
@@ -89,6 +92,7 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
               : null,
           motivation: values.motivation || null,
           committee_ids: values.committee_ids,
+          photo_url: values.photo_url,
         },
       });
 
@@ -99,10 +103,47 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
 
       setSubmitted(true);
       reset();
+      setPhotoPreview(null);
       toast.success("Candidatura recebida pela Secretaria.");
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Erro ao enviar";
       toast.error(msg);
+    }
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Por favor, selecione uma imagem.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${crypto.randomUUID()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("photos")
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from("photos")
+        .getPublicUrl(filePath);
+
+      setValue("photo_url", publicUrl, { shouldValidate: true });
+      setPhotoPreview(publicUrl);
+      toast.success("Foto carregada com sucesso.");
+    } catch (err) {
+      toast.error("Falha ao carregar foto.");
+      console.error(err);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -152,6 +193,54 @@ export const ApplicationForm = ({ committees, preselectedCode }: Props) => {
             § 1 — Identificação
           </legend>
 
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            <div className="w-full sm:w-32">
+              <Label>Foto do Candidato</Label>
+              <div 
+                className={`relative w-32 h-40 border-2 border-dashed flex flex-center items-center justify-center overflow-hidden transition-colors ${
+                  photoPreview ? 'border-primary' : 'border-hairline hover:border-ink-soft'
+                }`}
+              >
+                {photoPreview ? (
+                  <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-[10px] text-ink-soft uppercase tracking-tighter text-center px-2">
+                    {uploading ? "Carregando..." : "Clique para anexar"}
+                  </span>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  disabled={uploading}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
+              </div>
+              {errors.photo_url && (
+                <p className="text-[10px] text-destructive mt-1 uppercase tracking-tighter">Obrigatório</p>
+              )}
+            </div>
+
+            <div className="flex-1 grid sm:grid-cols-2 gap-5 sm:gap-6 w-full">
+              <Field label="Nome completo" error={errors.full_name?.message}>
+                <input className="coer-input" {...register("full_name")} />
+              </Field>
+              <Field label="Empresa / Razão Social" error={errors.company?.message}>
+                <input className="coer-input" {...register("company")} />
+              </Field>
+              <Field label="WhatsApp" error={errors.whatsapp?.message}>
+                <input
+                  className="coer-input"
+                  placeholder="(11) 9 0000-0000"
+                  {...register("whatsapp")}
+                />
+              </Field>
+              <Field label="E-mail corporativo" error={errors.email?.message}>
+                <input className="coer-input" type="email" {...register("email")} />
+              </Field>
+            </div>
+          </div>
+        </fieldset>
           <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
             <Field label="Nome completo" error={errors.full_name?.message}>
               <input className="coer-input" {...register("full_name")} />
