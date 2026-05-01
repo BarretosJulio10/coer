@@ -457,7 +457,7 @@ const StatusBadge = ({ status }: { status: Status }) => {
 };
 
 const DetailDrawer = ({
-  app, onClose, onUpdate, onDelete,
+  app, onClose, onUpdate, onDelete, onPrint,
 }: {
   app: AdminApplication;
   onClose: () => void;
